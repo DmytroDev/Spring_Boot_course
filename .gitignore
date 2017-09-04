@@ -1,0 +1,40 @@
+# Eclipse project files
+.settings
+.classpath
+.project
+.metadata
+.mymetadata
+.springBeans
+
+# IntelliJ Idea project files
+.idea/
+*.iml
+*.ipr
+*.iws
+/out/
+
+# Maven files
+*.jar
+*.war
+*.ear
+
+#log files
+*.log*
+logs
+
+*.class
+bin/
+node_modules/
+*.DS_Store
+
+# Gradle Files #
+.gradle
+.m2
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Build output directies
+/target
+*/target
+/build
+*/build
