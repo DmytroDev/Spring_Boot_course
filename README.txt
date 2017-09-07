@@ -1,17 +1,22 @@
 Spring Boot App.
-- use initial URL -  http://localhost:8080/index
+- use initial URL -  http://localhost:8000/index
 - use as credentials:
 for ROLE_DEVELOPER: {login : admin,  password : admin}
 for ROLE_USER: {login : user,  password : user}
+
+Profiles:
+- main - for MySQL(external DB),
+- embedded database - for H2(embedded DB).
 
 Programming and Markup Languages:
 Java 8, JavaScript, SQL, HTML, CSS.
 
 Java Frameworks and Technologies:
-Spring Framework 4.2, JPA (Hibernate), JSP, JSTL, SQL, HTML, CSS, jQuery, Bootstrap.
+Spring Boot, JPA (Hibernate), JSP, JSTL, SQL, HTML, CSS, jQuery, Bootstrap.
 
 Databases:
-H2 as embedded DB.
+1/ H2 as embedded DB.
+2/ MySQL as external DB.
 
 SVC Tools:
 Git
