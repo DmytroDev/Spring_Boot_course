@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -37,8 +37,9 @@ import static com.itcompany.softwarestore.configuration.Constants.getHibernatePr
  * @since 1.0
  */
 @Configuration
+@Profile("embedded database")
 @EnableTransactionManagement
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:h2_db.properties")
 @ComponentScan("com.itcompany.softwarestore")
 @EnableJpaRepositories(
         basePackages = "com.itcompany.softwarestore.dao.repository",
@@ -53,7 +54,6 @@ public class H2DatabaseConfiguration {
 
     @SuppressWarnings("duplicate")
     @Bean
-    @Primary
     public DataSource h2DataSource() {
         final DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getProperty(H2_PREFIX + DRIVER_CLASS_NAME));
@@ -64,7 +64,6 @@ public class H2DatabaseConfiguration {
     }
 
     @Bean
-    @Primary
     public LocalContainerEntityManagerFactoryBean h2EntityManager() {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 
@@ -78,7 +77,6 @@ public class H2DatabaseConfiguration {
     }
 
     @Bean
-    @Primary
     public JpaTransactionManager h2TransactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(h2EntityManager().getObject());
@@ -95,11 +93,11 @@ public class H2DatabaseConfiguration {
     public SpringLiquibase liquibase(DataSource dataSource) {
         SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setDataSource(dataSource);
-        liquibase.setChangeLog("classpath:db/master.xml");
+        liquibase.setChangeLog("classpath:h2_db/master.xml");
         liquibase.setContexts("embedded database");
         if (env.acceptsProfiles(EMBEDDED_DB_PROFILE)) {
             liquibase.setShouldRun(true);
-            LOGGER.warn("Using '{}' profile with H2 database in memory is not optimal, you should consider switching to" +
+            LOGGER.warn("Using H2 database in memory is not optimal, you should consider switching to" +
                     " MySQL to avoid rebuilding your database upon each start.");
         } else {
             liquibase.setShouldRun(false);
