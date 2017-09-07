@@ -1,5 +1,6 @@
 package com.itcompany.softwarestore.configuration;
 
+import liquibase.integration.spring.SpringLiquibase;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 import static com.itcompany.softwarestore.configuration.Constants.DRIVER_CLASS_NAME;
+import static com.itcompany.softwarestore.configuration.Constants.EMBEDDED_DB_PROFILE;
 import static com.itcompany.softwarestore.configuration.Constants.H2_PREFIX;
 import static com.itcompany.softwarestore.configuration.Constants.PACKAGES_TO_SCAN;
 import static com.itcompany.softwarestore.configuration.Constants.PASSWORD;
@@ -89,24 +91,19 @@ public class H2DatabaseConfiguration {
         return new JdbcTemplate(h2DataSource());
     }
 
-/*    @Bean
+    @Bean
     public SpringLiquibase liquibase(DataSource dataSource) {
         SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setDataSource(dataSource);
-        liquibase.setChangeLog("classpath:config/liquibase/master.xml");
-        liquibase.setContexts("development, production");
-        if (env.acceptsProfiles(Constants.SPRING_PROFILE_FAST)) {
-            if ("org.h2.jdbcx.JdbcDataSource".equals(propertyResolver.getProperty("dataSourceClassName"))) {
-                liquibase.setShouldRun(true);
-                log.warn("Using '{}' profile with H2 database in memory is not optimal, you should consider switching to" +
-                        " MySQL or Postgresql to avoid rebuilding your database upon each start.", Constants.SPRING_PROFILE_FAST);
-            } else {
-                liquibase.setShouldRun(false);
-            }
+        liquibase.setChangeLog("classpath:db/master.xml");
+        liquibase.setContexts("embedded database");
+        if (env.acceptsProfiles(EMBEDDED_DB_PROFILE)) {
+            liquibase.setShouldRun(true);
+            LOGGER.warn("Using '{}' profile with H2 database in memory is not optimal, you should consider switching to" +
+                    " MySQL to avoid rebuilding your database upon each start.");
         } else {
-            log.debug("Configuring Liquibase");
+            liquibase.setShouldRun(false);
         }
         return liquibase;
-    }*/
-
+    }
 }

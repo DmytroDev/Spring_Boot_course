@@ -53,10 +53,10 @@
             <scope>runtime</scope>
         </dependency>
 
-<!--        <dependency>
+        <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-        </dependency>-->
+        </dependency>
 
         <!-- for JSP-pages (JSTL) -->
         <dependency>
@@ -125,7 +125,8 @@
                     <suppressionsLocation>./checkstyle_suppressions.xml</suppressionsLocation>
                     <consoleOutput>true</consoleOutput>
                     <excludes>
-                        **/*Dto.java,**/configuration/*,**/*Configuration.java,**/dto/**,**/*Exception.java,**/exceptions/**, **/SoftwarestoreApplication.java
+                        **/*Dto.java,**/configuration/*,**/*Configuration.java,**/dto/**,**/*Exception.java,**/exceptions/**,
+                        **/SoftwarestoreApplication.java
                     </excludes>
                 </configuration>
                 <executions>
