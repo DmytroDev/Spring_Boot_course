@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.itcompany.softwarestore.configuration.MySQLAutoConfiguration,\
+com.itcompany.softwarestore.configuration.H2AutoConfiguration

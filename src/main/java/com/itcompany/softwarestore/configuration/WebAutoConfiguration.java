@@ -1,6 +1,17 @@
 package com.itcompany.softwarestore.configuration;
 
+/*import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import javax.servlet.Servlet;*/
+
 import com.itcompany.softwarestore.service.impl.UserDetailsServiceImpl;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +26,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import static com.itcompany.softwarestore.configuration.Constants.RESOURCES_HANDLER;
+import static com.itcompany.softwarestore.configuration.Constants.RESOURCES_LOCATION;
+import static com.itcompany.softwarestore.configuration.Constants.SUFFIX;
+import static com.itcompany.softwarestore.configuration.Constants.VIEWS_LOCATION;
+
 /**
- * WebContextConfiguration.
- *
  * @author Dmitriy Nadolenko
  * @version 1.0
  * @since 1.0
@@ -27,11 +41,7 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableAspectJAutoProxy
 @ComponentScan(basePackages = "com.itcompany.softwarestore.controller")
 @Import({SecurityConfiguration.class})
-public class WebConfiguration extends WebMvcConfigurerAdapter {
-    private static final String VIEWS_LOCATION = "/WEB-INF/views/";
-    private static final String SUFFIX = ".jsp";
-    private static final String RESOURCES_LOCATION = "/resources/";
-    private static final String RESOURCES_HANDLER = RESOURCES_LOCATION + "**";
+public class WebAutoConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -39,9 +49,9 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     }
 
     @Bean
+    @ConditionalOnClass(JstlView.class)
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setViewClass(JstlView.class);
         viewResolver.setPrefix(VIEWS_LOCATION);
         viewResolver.setSuffix(SUFFIX);
         return viewResolver;
