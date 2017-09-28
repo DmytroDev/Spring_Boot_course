@@ -1,0 +1,64 @@
+server:
+  port: 8000
+  jsp-servlet:
+    class-name: org.apache.jasper.servlet.JspServlet
+  display-name: Softwarestore
+
+spring:
+  profiles:
+    #active: "embedded_database"
+    active: "main"
+  main:
+    banner-mode: "off"
+  http:
+    multipart:
+      enabled: true      # Enable support of multi-part uploads.
+      max-file-size: 5MB
+      max-request-size: 5MB
+      file-size-threshold: 3MB
+      location: ${java.io.tmpdir}
+
+logging:
+  level: debug
+
+file_128:
+  packages:
+    to:
+      scan: "/images/128/"
+
+file_512:
+  packages:
+    to:
+      scan: "/images/512/"
+
+---
+
+spring:
+ profiles: main
+ datasource:
+   url: jdbc:mysql://localhost:3306/SOFTWARESTORE?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
+   username: root
+   password: root
+   driver-class-name: com.mysql.jdbc.Driver
+liquibase:
+  change-log: classpath:db/changelog/db.primary.changelog-master.xml
+
+---
+
+spring:
+  profiles: embedded_database
+  datasource:
+    #url: jdbc:h2:~/SOFTWARESTORE;AUTO_SERVER=TRUE
+    #url: jdbc:h2:~/SOFTWARESTORE;IFEXISTS=TRUE;DB_CLOSE_ON_EXIT=TRUE;FILE_LOCK=NO;AUTO_RECONNECT=TRUE
+    url: jdbc:h2:~/SOFTWARESTORE;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+liquibase:
+  change-log: classpath:db/changelog/db.secondary.changelog-master.xml
+
+
+

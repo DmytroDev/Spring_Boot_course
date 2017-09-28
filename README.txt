@@ -6,7 +6,7 @@ for ROLE_USER: {login : user,  password : user}
 
 Profiles:
 - main - for MySQL(external DB),
-- embedded database - for H2(embedded DB).
+- embedded_database - for H2(embedded DB).
 
 Programming and Markup Languages:
 Java 8, JavaScript, SQL, HTML, CSS.

@@ -10,10 +10,6 @@ public class Constants {
 
     public static final String BASE_PACKAGES = "com.itcompany.softwarestore.dao.entity";
 
-    // Profiles
-    public static final String EMBEDDED_DB_PROFILE = "embedded database";
-    public static final String MAIN_PROFILE = "main";
-
     // Web
     public static final String VIEWS_LOCATION = "/WEB-INF/views/";
     public static final String SUFFIX = ".jsp";
