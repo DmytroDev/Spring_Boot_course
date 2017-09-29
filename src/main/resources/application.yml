@@ -54,15 +54,17 @@ liquibase:
 spring:
   profiles: embedded_database
   datasource:
-    #url: jdbc:h2:~/SOFTWARESTORE;AUTO_SERVER=TRUE
-    #url: jdbc:h2:~/SOFTWARESTORE;IFEXISTS=TRUE;DB_CLOSE_ON_EXIT=TRUE;FILE_LOCK=NO;AUTO_RECONNECT=TRUE
-    url: jdbc:h2:~/SOFTWARESTORE;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:~/SOFTWARESTORE;AUTO_SERVER=TRUE
     username: sa
     password:
     driver-class-name: org.h2.Driver
+    platform: h2 # Platform to use in the schema resource (schema-${platform}.sql).
   h2:
     console:
       enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: none
 liquibase:
   change-log: classpath:db/changelog/db.secondary.changelog-master.xml
 
