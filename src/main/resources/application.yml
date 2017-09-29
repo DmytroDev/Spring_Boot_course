@@ -17,6 +17,12 @@ spring:
       max-request-size: 5MB
       file-size-threshold: 3MB
       location: ${java.io.tmpdir}
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+      static-path-pattern: /**
+      static-locations: classpath:/resources/
 
 logging:
   level: debug
