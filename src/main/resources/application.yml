@@ -6,8 +6,8 @@ server:
 
 spring:
   profiles:
-    #active: "embedded_database"
-    active: "main"
+    active: "embedded_database"
+    #active: "main"
   main:
     banner-mode: "off"
   http:
